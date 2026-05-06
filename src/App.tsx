@@ -1100,7 +1100,7 @@ function ClientLanding() {
   ];
 
   return (
-    <div className="space-y-24 md:space-y-32 pb-32 -mt-12 overflow-x-hidden">
+    <div className="space-y-20 md:space-y-32 pb-32 pt-4 md:pt-0 overflow-x-hidden">
       {/* 1. Hero Section */}
       <section className="relative h-[70vh] md:h-[85vh] -mx-6 md:-mx-12 overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0">
@@ -1597,7 +1597,7 @@ export default function App() {
       </div>
 
       <main className="relative z-10 p-6 md:p-12 pb-32 md:pb-32 max-w-7xl mx-auto w-full">
-        <header className="flex items-center justify-between mb-8 md:mb-12 bg-rancho-nav p-4 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white/20 shadow-xl overflow-hidden">
+        <header className="flex items-center justify-between mb-12 md:mb-16 bg-rancho-nav p-4 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white/20 shadow-xl overflow-hidden">
           <div className="flex items-center gap-3 md:gap-6">
             <img src="https://cossma.com.mx//lacasadelrancho.png" alt="Logo" className="w-12 md:w-24 h-auto drop-shadow-xl" referrerPolicy="no-referrer" />
             <div>
