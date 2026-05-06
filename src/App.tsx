@@ -407,9 +407,9 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
   const config = ROLE_CONFIGS[role];
 
   return (
-    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl">
-      <div className="bg-rancho-nav/90 backdrop-blur-3xl p-3 rounded-[2.5rem] shadow-[0_20px_50px_-10px_rgba(244,73,21,0.3)] flex items-center justify-between gap-2 border border-white/20">
-        <div className="flex items-center gap-2 flex-1 overflow-x-auto no-scrollbar px-2">
+    <div className="fixed bottom-0 md:bottom-8 left-1/2 -translate-x-1/2 z-50 w-full md:w-[95%] max-w-3xl px-4 md:px-0">
+      <div className="bg-rancho-nav/95 backdrop-blur-3xl p-2 md:p-3 rounded-none md:rounded-[2.5rem] shadow-[0_20px_50px_-10px_rgba(244,73,21,0.3)] flex items-center justify-between gap-1 md:gap-2 border-t md:border border-white/20">
+        <div className="flex items-center gap-1 md:gap-2 flex-1 justify-around md:justify-start px-1 md:px-2">
           {config.menu.map((item, idx) => {
             const tabId = item.label.toLowerCase().replace(/\s+/g, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
             const isActive = activeTab === tabId;
@@ -418,20 +418,20 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
               <button
                 key={idx}
                 onClick={() => onTabChange(tabId)}
-                className={`flex-1 min-w-[70px] py-3.5 rounded-[1.8rem] flex flex-col items-center gap-1 transition-all duration-500 group relative overflow-hidden ${
+                className={`flex-1 md:flex-none md:min-w-[70px] py-2 md:py-3.5 rounded-[1rem] md:rounded-[1.8rem] flex flex-col items-center gap-1 transition-all duration-500 group relative overflow-hidden ${
                   isActive 
                     ? 'text-white' 
                     : 'text-white/60 hover:text-white'
                 }`}
               >
-                <div className={`relative z-10 transition-transform duration-500 ${isActive ? 'scale-110 mb-0.5' : 'group-hover:scale-110'}`}>
-                  <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                <div className={`relative z-10 transition-transform duration-500 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
+                  <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
                 </div>
-                <span className={`text-[9px] font-black uppercase tracking-[0.2em] relative z-10 hidden md:block transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-40'}`}>{item.label}</span>
+                <span className={`text-[8px] font-black uppercase tracking-[0.15em] relative z-10 hidden md:block transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-40'}`}>{item.label}</span>
                 {isActive && (
                   <motion.div 
                     layoutId="active-pill"
-                    className="absolute inset-x-1 inset-y-1 bg-white/20 rounded-[1.4rem] shadow-inner"
+                    className="absolute inset-0 md:inset-x-1 md:inset-y-1 bg-white/10 rounded-[0.8rem] md:rounded-[1.4rem] shadow-inner"
                     transition={{ type: 'spring', bounce: 0.25, duration: 0.8 }}
                   />
                 )}
@@ -440,14 +440,14 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
           })}
         </div>
         
-        <div className="w-px h-10 bg-white/20 mx-2" />
+        <div className="w-px h-8 md:h-10 bg-white/20 mx-1 md:mx-2" />
         
         <button 
           onClick={onLogout}
-          className="p-5 rounded-[1.8rem] text-white/60 hover:text-white hover:bg-white/10 transition-all group"
+          className="p-3 md:p-5 rounded-[1rem] md:rounded-[1.8rem] text-white/60 hover:text-white hover:bg-white/10 transition-all group"
           title="Salir"
         >
-          <LogOut size={22} className="group-hover:translate-x-0.5 transition-transform" />
+          <LogOut size={20} className="group-hover:translate-x-0.5 transition-transform" />
         </button>
       </div>
     </div>
@@ -1100,42 +1100,34 @@ function ClientLanding() {
   ];
 
   return (
-    <div className="space-y-32 pb-32 -mt-12">
+    <div className="space-y-24 md:space-y-32 pb-32 -mt-12 overflow-x-hidden">
       {/* 1. Hero Section */}
-      <section className="relative h-[85vh] -mx-6 md:-mx-12 overflow-hidden flex items-center justify-center">
+      <section className="relative h-[70vh] md:h-[85vh] -mx-6 md:-mx-12 overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0">
           <img 
             src="https://escapadas.mexicodesconocido.com.mx/wp-content/uploads/2025/02/pexels-jdgromov-4957462.jpg" 
             className="w-full h-full object-cover"
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         </div>
         
-        <div className="relative z-10 text-center text-white px-6 w-full max-w-5xl">
+        <div className="relative z-10 text-center text-white px-4 md:px-6 w-full max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <div className="mb-8 flex justify-center">
-              <img 
-                src="https://cossma.com.mx//lacasadelrancho.png" 
-                alt="Logo" 
-                className="w-48 h-auto drop-shadow-2xl brightness-110"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold italic mb-6 leading-tight">
-              ¿Buscando el lugar perfecto <br /> 
+            <h1 className="text-3xl md:text-7xl font-serif font-bold italic mb-4 md:mb-6 leading-tight">
+              ¿Buscando el lugar perfecto <br className="hidden md:block" /> 
               <span className="text-rancho-turquoise">para tu próximo evento?</span>
             </h1>
-            <p className="text-xl md:text-2xl font-medium mb-12 text-white/90 max-w-3xl mx-auto italic">
-              En La Casa del Rancho, la diversión y el relax se unen. <br />
-              Somos tu paraíso privado para fiestas y celebraciones únicas.
+            <p className="text-lg md:text-2xl font-medium mb-8 md:mb-12 text-white/90 max-w-3xl mx-auto italic leading-relaxed">
+              En La Casa del Rancho, la diversión y el relax se unen. <br className="hidden md:block" />
+              Paraíso privado para fiestas y celebraciones únicas.
             </p>
-            <button className="bg-rancho-coral text-white px-12 py-6 rounded-full font-black text-sm uppercase tracking-[0.3em] shadow-[0_15px_40px_rgba(255,77,0,0.4)] hover:scale-105 transition-all">
-              ¡Reserva Tu Fecha Hoy!
+            <button className="bg-rancho-coral text-white px-6 md:px-12 py-3 md:py-6 rounded-full font-black text-[10px] md:text-sm uppercase tracking-[0.2em] md:tracking-[0.3em] shadow-lg md:shadow-[0_15px_40px_rgba(255,77,0,0.4)] hover:scale-105 transition-all">
+              ¡Reserva Ahora!
             </button>
           </motion.div>
         </div>
@@ -1597,7 +1589,7 @@ export default function App() {
   }
 
   return (
-    <div id="main-app-container" className="min-h-screen bg-white font-sans selection:bg-rancho-turquoise/20 relative">
+    <div id="main-app-container" className="min-h-screen bg-white font-sans selection:bg-rancho-turquoise/20 relative overflow-x-hidden">
       {/* Background Orbs */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-purple/10 rounded-full blur-[100px]" />
@@ -1605,18 +1597,19 @@ export default function App() {
       </div>
 
       <main className="relative z-10 p-6 md:p-12 pb-32 md:pb-32 max-w-7xl mx-auto w-full">
-        <header className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8 bg-rancho-nav p-8 rounded-[3rem] border border-white/20 shadow-2xl">
-          <div className="flex items-center gap-6">
-            <img src="https://cossma.com.mx//lacasadelrancho.png" alt="Logo" className="w-24 h-auto drop-shadow-xl brightness-0 invert" referrerPolicy="no-referrer" />
+        <header className="flex items-center justify-between mb-8 md:mb-12 bg-rancho-nav p-4 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white/20 shadow-xl overflow-hidden">
+          <div className="flex items-center gap-3 md:gap-6">
+            <img src="https://cossma.com.mx//lacasadelrancho.png" alt="Logo" className="w-12 md:w-24 h-auto drop-shadow-xl" referrerPolicy="no-referrer" />
             <div>
-              <h2 id="dashboard-title" className="text-3xl font-serif font-bold tracking-tight text-white capitalize italic">
-                {role === 'admin' ? 'Gerencia General' : role === 'coordinator' ? 'Ventas y Logística' : role === 'staff' ? 'Staff Operativo' : 'Explora el Rancho'}
+              <h2 id="dashboard-title" className="text-lg md:text-3xl font-serif font-bold tracking-tight text-white capitalize italic leading-tight">
+                La Casa del Rancho
               </h2>
-              <div className="flex items-center gap-3 mt-1">
-                <span className="text-white bg-white/20 border-white/10 font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border">
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-[8px] md:text-[10px] text-white/60 uppercase font-black tracking-widest">
                   {ROLE_CONFIGS[role].title}
                 </span>
-                <p className="text-white/70 text-sm font-medium italic">
+                <div className="w-1 h-1 bg-white/30 rounded-full hidden md:block" />
+                <p className="text-white/50 text-[10px] md:text-sm font-medium italic hidden md:block">
                   {role === 'admin' ? 
                     (activeTab === 'resumen' ? 'Panel de Control Principal' : activeTab === 'finanzas' ? 'Auditoría Financiera' : activeTab === 'usuarios' ? 'Gestión de Capital Humano' : activeTab === 'configuracion' ? 'Configuración de Negocio' : 'Inteligencia de Datos') 
                     : activeTab
@@ -1624,15 +1617,6 @@ export default function App() {
                 </p>
               </div>
             </div>
-          </div>
-          
-          <div className="flex items-center gap-4">
-             <div className="flex -space-x-2 mr-4">
-                {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?u=${i}`} className="w-10 h-10 rounded-full border-2 border-white shadow-lg" />)}
-             </div>
-             <button className="p-4 rounded-2xl bg-white/10 border border-white/20 text-white shadow-lg hover:bg-white/20 transition-all">
-                <Settings size={20} />
-             </button>
           </div>
         </header>
 
