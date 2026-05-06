@@ -15,8 +15,13 @@
   /* New Image Colors (Purple Aesthetic) */
   --color-primary-purple: #6b21a8;
   --color-accent-pink: #d946ef;
-  --color-bg-light: #f8faff;
-  --color-card-bg: rgba(255, 255, 255, 0.8);
+  
+  --color-rancho-turquoise: #00e5ff;
+  --color-rancho-coral: #ff4d00;
+  --color-rancho-white: #ffffff;
+  
+  --color-bg-light: #ffffff;
+  --color-card-bg: #ffffff;
   --color-text-dark: #1e1b4b;
   --color-text-muted: #6b7280;
 }

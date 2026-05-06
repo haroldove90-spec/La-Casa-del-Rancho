@@ -26,7 +26,17 @@ import {
   ShoppingCart,
   ArrowRight,
   Menu,
-  X
+  X,
+  MapPin,
+  Utensils,
+  Sparkles,
+  Waves,
+  Facebook,
+  Instagram,
+  Twitter,
+  Mail,
+  Phone,
+  Gift
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -410,8 +420,8 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
                 onClick={() => onTabChange(tabId)}
                 className={`flex-1 min-w-[70px] py-3.5 rounded-[1.8rem] flex flex-col items-center gap-1 transition-all duration-500 group relative overflow-hidden ${
                   isActive 
-                    ? 'text-primary-purple' 
-                    : 'text-text-muted hover:text-primary-purple'
+                    ? (role === 'client' ? 'text-rancho-turquoise' : 'text-primary-purple') 
+                    : `text-text-muted ${role === 'client' ? 'hover:text-rancho-turquoise' : 'hover:text-primary-purple'}`
                 }`}
               >
                 <div className={`relative z-10 transition-transform duration-500 ${isActive ? 'scale-110 mb-0.5' : 'group-hover:scale-110'}`}>
@@ -421,7 +431,7 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
                 {isActive && (
                   <motion.div 
                     layoutId="active-pill"
-                    className="absolute inset-x-1 inset-y-1 bg-primary-purple/10 rounded-[1.4rem] shadow-inner"
+                    className={`absolute inset-x-1 inset-y-1 ${role === 'client' ? 'bg-rancho-turquoise/10' : 'bg-primary-purple/10'} rounded-[1.4rem] shadow-inner`}
                     transition={{ type: 'spring', bounce: 0.25, duration: 0.8 }}
                   />
                 )}
@@ -1039,149 +1049,288 @@ function CoordinatorDashboard({ activeTab }: { activeTab: CoordinatorTab }) {
 // --- Client Módulos ---
 
 function ClientLanding() {
-  const categories = [
+  const features = [
     { 
-      title: 'Marisquería & Grill', 
-      desc: 'Sabor auténtico con camarones frescos y platillos regionales preparados al momento por chefs expertos.', 
-      icon: ShoppingCart, 
-      color: 'bg-primary-purple/10 text-primary-purple',
-      img: 'https://images.unsplash.com/photo-1559739511-e130c25fd6e5?auto=format&fit=crop&q=80&w=800'
+      title: 'Alberca Espectacular', 
+      desc: 'Sumérgete en nuestra alberca principal, rodeada de palmeras y zonas de descanso.', 
+      icon: Waves, 
+      color: 'bg-rancho-turquoise/10 text-rancho-turquoise' 
     },
     { 
-      title: 'Coctelería de Autor', 
-      desc: 'Las mejores micheladas, margaritas y bebidas refrescantes diseñadas para elevar el ánimo de tu fiesta.', 
-      icon: Droplets, 
-      color: 'bg-accent-pink/10 text-accent-pink',
-      img: 'https://images.unsplash.com/photo-1513558111299-2313d1c3905f?auto=format&fit=crop&q=80&w=800'
+      title: 'Ambiente Único', 
+      desc: 'Nuestra decoración única y la iluminación nocturna crean un ambiente mágico para cualquier ocasión.', 
+      icon: Sparkles, 
+      color: 'bg-rancho-coral/10 text-rancho-coral' 
     },
     { 
-      title: 'Jardines & Terrazas', 
-      desc: 'Instalaciones de primer nivel rodeadas de naturaleza, ideales para bodas, XV años y reuniones corporativas.', 
-      icon: Users, 
-      color: 'bg-primary-purple/10 text-primary-purple',
-      img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800'
+      title: 'Todo Incluido', 
+      desc: 'Nos encargamos de todo: mobiliario, catering, sonido y más. Tú solo disfruta.', 
+      icon: Utensils, 
+      color: 'bg-rancho-turquoise/10 text-rancho-turquoise' 
+    },
+    { 
+      title: 'Ubicación Privilegiada', 
+      desc: 'Situados en San Isidro Buensuceso, en la Privada Hidalgo Sur, somos accesibles y exclusivos.', 
+      icon: MapPin, 
+      color: 'bg-rancho-coral/10 text-rancho-coral' 
     },
   ];
 
+  const gallery = [
+    'https://escapadas.mexicodesconocido.com.mx/wp-content/uploads/2024/05/Snapinsta.app_66107959_434556023940702_392096322251933375_n_1080.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUwCmMTPKDMl9q7c5KdEQH2jIhYoXTqU9F-w&s',
+    'https://offloadmedia.feverup.com/cdmxsecreta.com/wp-content/uploads/2025/02/14154641/balnearios-en-hidalgo.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR5I6074oQl7ngq4uQAWOQMJTyx1-G0GnJsA&s',
+    'https://www.radioformula.com.mx/__export/1774820091669/sites/formula/img/2026/03/29/balnearios-abren-24-horas-aglomeraciones-semana-santa.jpg_1987433286.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLoINpMtbxmgpqLcrG1qtigaxIwcU3XlWP7g&s',
+  ];
+
+  const eventTypes = [
+    'Fiestas de Cumpleaños',
+    'Reuniones Familiares',
+    'Eventos Corporativos',
+    'Pool Parties',
+    'Graduaciones',
+  ];
+
+  const testimonials = [
+    { name: 'Ana Sofía', text: 'El lugar es simplemente mágico. La pool party de mi cumpleaños fue la mejor de mi vida.' },
+    { name: 'Carlos R.', text: 'Increíble servicio. Hicieron que nuestra reunión familiar fuera libre de estrés y con mucha diversión.' },
+    { name: 'Mariana L.', text: 'Las luces de neón y la alberca crean un ambiente increíble de noche. ¡Súper recomendado!' },
+  ];
+
   return (
-    <div className="space-y-24 pb-24">
-      {/* Hero Section */}
-      <div className="relative h-[750px] rounded-[4rem] overflow-hidden group shadow-[0_30px_100px_-20px_rgba(107,33,168,0.2)]">
-        <img 
-          src="https://images.unsplash.com/photo-1563897539633-7374c276c212?auto=format&fit=crop&q=80&w=2000" 
-          alt="La Casa del Rancho Venue" 
-          className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-purple/90 via-primary-purple/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-purple/60 via-transparent to-transparent" />
+    <div className="space-y-32 pb-32 -mt-12">
+      {/* 1. Hero Section */}
+      <section className="relative h-[85vh] -mx-6 md:-mx-12 overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0">
+          <img 
+            src="https://escapadas.mexicodesconocido.com.mx/wp-content/uploads/2025/02/pexels-jdgromov-4957462.jpg" 
+            className="w-full h-full object-cover"
+            alt="Hero Background"
+          />
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
+        </div>
         
-        <div className="absolute inset-0 p-12 md:p-24 flex items-end">
-          <div className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            >
-              <div className="flex items-center gap-4 mb-8">
-                <img 
-                  src="la_casa_del_rancho_logo.png" 
-                  alt="Logo" 
-                  className="w-24 h-auto drop-shadow-2xl brightness-125"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="h-12 w-px bg-white/30" />
-                <span className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3 rounded-full font-black text-[10px] uppercase tracking-[0.4em]">
-                  Establecimiento Gran Clase
-                </span>
-              </div>
-              <h3 className="text-6xl md:text-8xl font-serif font-black text-white mb-8 italic leading-[1.1] tracking-tight">
-                Donde el Sabor <br /> 
-                <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">Encuentra su Hogar.</span>
-              </h3>
-              <p className="text-white/90 text-xl md:text-2xl leading-relaxed mb-12 max-w-2xl font-medium italic">
-                La joya de la marisquería y coctelería regional. Instalaciones premium para eventos que merecen ser recordados por siempre.
-              </p>
-              <div className="flex flex-wrap gap-6">
-                <button className="bg-white text-primary-purple px-12 py-6 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all active:scale-95">
-                  Reserva tu Evento
-                </button>
-                <button className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-6 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-white/20 transition-all flex items-center gap-3">
-                  Explorar Menú <ArrowRight size={18} />
-                </button>
-              </div>
-            </motion.div>
-          </div>
+        <div className="relative z-10 text-center text-white px-6 w-full max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <div className="mb-8 flex justify-center">
+              <img 
+                src="https://cossma.com.mx//lacasadelrancho.png" 
+                alt="Logo" 
+                className="w-48 h-auto drop-shadow-2xl brightness-110"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold italic mb-6 leading-tight">
+              ¿Buscando el lugar perfecto <br /> 
+              <span className="text-rancho-turquoise">para tu próximo evento?</span>
+            </h1>
+            <p className="text-xl md:text-2xl font-medium mb-12 text-white/90 max-w-3xl mx-auto italic">
+              En La Casa del Rancho, la diversión y el relax se unen. <br />
+              Somos tu paraíso privado para fiestas y celebraciones únicas.
+            </p>
+            <button className="bg-rancho-coral text-white px-12 py-6 rounded-full font-black text-sm uppercase tracking-[0.3em] shadow-[0_15px_40px_rgba(255,77,0,0.4)] hover:scale-105 transition-all">
+              ¡Reserva Tu Fecha Hoy!
+            </button>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Services Section */}
-      <div>
+      {/* 2. Why Choose Us */}
+      <section className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-20">
-          <span className="text-primary-purple font-black text-[10px] uppercase tracking-[0.5em] italic block mb-4">Nuestra Propuesta de Valor</span>
-          <h4 className="text-5xl font-serif font-black text-text-dark mb-6 italic underline decoration-primary-purple/10 underline-offset-[12px]">Experiencia Rancho 360°</h4>
-          <p className="text-text-muted max-w-2xl mx-auto text-lg font-medium">Ofrecemos una fusión única entre gastronomía de altura y espacios arquitectónicos diseñados para la convivencia.</p>
+          <h2 className="text-5xl font-serif font-bold italic text-text-dark mb-4">¿Por Qué La Casa del Rancho?</h2>
+          <div className="w-24 h-1 bg-rancho-turquoise mx-auto rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {categories.map((cat, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {features.map((f, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.2, duration: 0.8 }}
-              className="bg-white rounded-[3.5rem] border border-primary-purple/5 overflow-hidden group hover:border-primary-purple transition-all shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_70px_-15px_rgba(107,33,168,0.15)] flex flex-col"
+              transition={{ delay: i * 0.1 }}
+              className="text-center group"
             >
-              <div className="h-80 overflow-hidden relative">
-                <img src={cat.img} alt={cat.title} className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className={`w-20 h-20 ${f.color} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
+                <f.icon size={36} />
               </div>
-              <div className="p-10 flex-1 flex flex-col items-center text-center">
-                <div className={`p-5 rounded-[1.5rem] ${cat.color} mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500`}>
-                  <cat.icon size={32} />
-                </div>
-                <h5 className="text-3xl font-serif font-black mb-4 italic text-text-dark">{cat.title}</h5>
-                <p className="text-text-muted text-sm leading-relaxed mb-8 flex-1 font-medium">{cat.desc}</p>
-                <button className="text-primary-purple text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-3 group-hover:gap-5 transition-all">
-                  Descubrir Más <ArrowRight size={18} />
-                </button>
-              </div>
+              <h3 className="text-xl font-bold text-text-dark mb-3">{f.title}</h3>
+              <p className="text-text-muted text-sm leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Social Proof / Quote Section */}
-      <div className="bg-white rounded-[4rem] border border-primary-purple/10 p-12 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.05)] flex flex-col lg:flex-row items-center gap-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-purple/5 rounded-full blur-[100px] -mr-48 -mt-48" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-pink/5 rounded-full blur-[100px] -ml-48 -mb-48" />
+      {/* 3. Our Spaces (Gallery) */}
+      <section className="bg-gray-50 -mx-6 md:-mx-12 py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-serif font-bold italic text-text-dark mb-4">Explora Nuestras Instalaciones</h2>
+            <p className="text-text-muted italic">Momentos capturados en nuestro paraíso.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {gallery.map((img, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="h-[400px] rounded-[2.5rem] overflow-hidden shadow-xl"
+              >
+                <img src={img} className="w-full h-full object-cover" alt={`Gallery ${i}`} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Types of Events */}
+      <section className="max-w-5xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl font-serif font-bold italic text-text-dark mb-4">Celebraciones para Todos los Gustos</h2>
+          <div className="w-24 h-1 bg-rancho-coral mx-auto rounded-full" />
+        </div>
         
-        <div className="flex-1 relative z-10">
-          <span className="text-accent-pink font-black text-[10px] uppercase tracking-[0.5em] block mb-6 italic">Reservaciones</span>
-          <h4 className="text-5xl md:text-6xl font-serif font-black mb-8 italic text-text-dark leading-tight">Haz Realidad <br /><span className="text-primary-purple">tu Próxima Celebración.</span></h4>
-          <p className="text-text-muted text-xl leading-relaxed mb-12 font-medium italic">
-            Nuestros expertos en coordinación están listos para diseñar una propuesta a tu medida. Cotiza ahora mismo y asegura tu lugar en El Rancho.
-          </p>
-          <div className="flex items-center gap-8">
-            <div className="flex -space-x-4">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="w-16 h-16 rounded-full border-4 border-white shadow-xl overflow-hidden hover:scale-110 transition-transform cursor-pointer">
-                  <img src={`https://i.pravatar.cc/150?u=${i}`} alt="User" />
-                </div>
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {eventTypes.map((type, i) => (
+            <div key={i} className="bg-white p-8 rounded-3xl border border-gray-100 flex items-center gap-6 shadow-sm hover:border-rancho-turquoise/30 transition-all group">
+              <div className="w-12 h-12 bg-rancho-turquoise/10 text-rancho-turquoise rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Gift size={24} />
+              </div>
+              <span className="font-bold text-lg text-text-dark">{type}</span>
             </div>
-            <div>
-              <p className="text-lg font-serif font-bold text-text-dark italic">+500 Momentos Inolvidables</p>
-              <p className="text-[10px] text-text-muted uppercase font-black tracking-widest mt-1">Este Año en La Casa del Rancho</p>
+          ))}
+          <div className="bg-rancho-turquoise/5 p-8 rounded-3xl border border-dashed border-rancho-turquoise/30 flex items-center justify-center text-rancho-turquoise font-bold italic">
+            ¡Y mucho más!
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Testimonials */}
+      <section className="bg-text-dark py-32 -mx-6 md:-mx-12">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-4xl font-serif font-bold italic text-white text-center mb-20">Lo que Dicen Nuestros Clientes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 relative">
+                <p className="text-white/80 italic mb-8 leading-relaxed">"{t.text}"</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-rancho-turquoise rounded-full" />
+                  <span className="text-white font-bold">{t.name}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Special Offer */}
+      <section className="max-w-5xl mx-auto px-6">
+        <div className="bg-gradient-to-br from-rancho-turquoise to-rancho-coral p-12 md:p-20 rounded-[4rem] text-white overflow-hidden relative shadow-2xl">
+          <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
+            <Gift size={200} />
+          </div>
+          <div className="relative z-10 max-w-2xl">
+            <h2 className="text-5xl font-serif font-bold italic mb-6">¡Oferta Especial!</h2>
+            <p className="text-xl mb-12 text-white/90 italic font-medium">
+              ¡Reserva tu evento antes del 31 de Mayo y recibe una hora de DJ gratis o un set de bebidas de bienvenida!
+            </p>
+            <form className="flex flex-col md:flex-row gap-4">
+              <input 
+                type="email" 
+                placeholder="Tu correo electrónico" 
+                className="flex-1 bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 placeholder:text-white/60 outline-none focus:bg-white/30"
+              />
+              <button className="bg-white text-rancho-coral px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-opacity-90 transition-all">
+                Obtener Oferta
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Contact Section */}
+      <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div className="space-y-12">
+          <div>
+            <h2 className="text-5xl font-serif font-bold italic text-text-dark mb-4">¡Contáctanos y Reserva tu Fecha!</h2>
+            <div className="w-24 h-1 bg-rancho-turquoise rounded-full mb-12" />
+          </div>
+          
+          <div className="space-y-8">
+            <div className="flex items-center gap-6 group">
+              <div className="w-16 h-16 bg-gray-100 rounded-3xl flex items-center justify-center text-rancho-turquoise group-hover:bg-rancho-turquoise group-hover:text-white transition-all">
+                <Phone size={28} />
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Llámanos o WhatsApp</p>
+                <p className="text-2xl font-bold text-text-dark">22 23 87 84 13</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-6 group">
+              <div className="w-16 h-16 bg-gray-100 rounded-3xl flex items-center justify-center text-rancho-coral group-hover:bg-rancho-coral group-hover:text-white transition-all">
+                <MapPin size={28} />
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Dirección</p>
+                <p className="text-2xl font-bold text-text-dark">Privada Hidalgo Sur, San Isidro Buensuceso</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-6 group">
+              <div className="w-16 h-16 bg-gray-100 rounded-3xl flex items-center justify-center text-rancho-turquoise group-hover:bg-rancho-turquoise group-hover:text-white transition-all">
+                <Mail size={28} />
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Correo Electrónico</p>
+                <p className="text-2xl font-bold text-text-dark">hola@lacasadelrancho.com</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="w-full lg:w-[450px] relative z-10">
-           <div className="p-2 bg-gradient-to-br from-primary-purple/10 to-accent-pink/10 rounded-[3.5rem] shadow-inner">
-             <QuoteGenerator />
-           </div>
+
+        <div className="h-[500px] bg-gray-100 rounded-[3rem] overflow-hidden shadow-2xl relative">
+          {/* Embed Google Maps */}
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.503714249071!2d-98.1147!3d19.16!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA5JzM2LjAiTiA5OMKwMDYnNTIuOSJX!5e0!3m2!1ses!2smx!4v1651848000000!5m2!1ses!2smx" 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen={true} 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
-      </div>
+      </section>
+
+      {/* 8. Footer */}
+      <footer className="bg-gray-100 -mx-6 md:-mx-12 pt-20 pb-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
+            <img 
+              src="https://cossma.com.mx//lacasadelrancho.png" 
+              alt="Logo" 
+              className="w-32 h-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all"
+              referrerPolicy="no-referrer"
+            />
+            <div className="flex gap-8">
+              <Facebook className="text-text-muted hover:text-rancho-turquoise cursor-pointer transition-colors" />
+              <Instagram className="text-text-muted hover:text-rancho-coral cursor-pointer transition-colors" />
+              <Twitter className="text-text-muted hover:text-rancho-turquoise cursor-pointer transition-colors" />
+            </div>
+          </div>
+          <div className="text-center text-text-muted text-[10px] font-black uppercase tracking-widest border-t border-gray-200 pt-10">
+            Copyright © 2023 La Casa del Rancho. Todos los derechos reservados.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -1189,7 +1338,7 @@ function ClientLanding() {
 function ClientServices() {
   const packages = [
     { name: 'Paquete Basic', price: '$15,000', items: ['Renta de Jardín (8h)', 'Mobiliario Básico', 'Seguridad', 'Alberca Climatizada'], color: 'from-gray-50 to-white border-gray-100' },
-    { name: 'Paquete Imperial', price: '$35,000', items: ['Banquete 3 Tiempos', 'Mesa de Dulces', 'DJ & Audio Pro', 'Decoración Floral'], featured: true, color: 'from-primary-purple to-accent-pink text-white border-primary-purple shadow-2xl shadow-primary-purple/30 translate-y-[-1rem] lg:scale-110' },
+    { name: 'Paquete Imperial', price: '$35,000', items: ['Banquete 3 Tiempos', 'Mesa de Dulces', 'DJ & Audio Pro', 'Decoración Floral'], featured: true, color: 'from-rancho-turquoise to-rancho-coral text-white border-rancho-turquoise shadow-2xl shadow-rancho-coral/30 translate-y-[-1rem] lg:scale-110' },
     { name: 'Day Pass Familiar', price: '$5,000', items: ['Acceso a Alberca', 'Zona de Asadores', 'Estacionamiento', 'Capacidad 20 pax'], color: 'from-gray-50 to-white border-gray-100' },
   ];
 
@@ -1201,27 +1350,27 @@ function ClientServices() {
           className={`p-12 rounded-[3.5rem] border flex flex-col gap-10 transition-all bg-gradient-to-br ${p.color} relative group`}
         >
           {p.featured && (
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-white text-primary-purple px-6 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shadow-xl border border-primary-purple/20">
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-white text-rancho-coral px-6 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shadow-xl border border-rancho-coral/20">
               Elección de Clientes
             </div>
           )}
           <div className="text-center">
             <h4 className={`text-3xl font-serif font-black italic mb-2 ${p.featured ? 'text-white' : 'text-text-dark'}`}>{p.name}</h4>
-            <p className={`text-5xl font-black tabular-nums ${p.featured ? 'text-white' : 'text-primary-purple'}`}>
+            <p className={`text-5xl font-black tabular-nums ${p.featured ? 'text-white' : 'text-rancho-turquoise'}`}>
               {p.price}
               <span className={`text-[10px] font-black uppercase tracking-widest ml-1 ${p.featured ? 'text-white/60' : 'text-text-muted italic'}`}> / base</span>
             </p>
           </div>
-          <div className={`h-px w-full ${p.featured ? 'bg-white/20' : 'bg-primary-purple/10'}`} />
+          <div className={`h-px w-full ${p.featured ? 'bg-white/20' : 'bg-rancho-turquoise/10'}`} />
           <ul className="space-y-5 flex-1 p-2">
             {p.items.map((item, idx) => (
               <li key={idx} className={`text-sm flex items-center gap-4 font-medium italic ${p.featured ? 'text-white/80' : 'text-text-muted hover:text-text-dark'} transition-colors`}>
-                <div className={`w-2 h-2 rounded-full ${p.featured ? 'bg-white' : 'bg-primary-purple shadow-[0_0_8px_rgba(107,33,168,0.5)]'}`} />
+                <div className={`w-2 h-2 rounded-full ${p.featured ? 'bg-white' : 'bg-rancho-turquoise shadow-[0_0_8px_rgba(0,229,255,0.5)]'}`} />
                 {item}
               </li>
             ))}
           </ul>
-          <button className={`w-full py-6 rounded-[1.5rem] font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl active:scale-95 ${p.featured ? 'bg-white text-primary-purple shadow-white/20 hover:brightness-110' : 'bg-primary-purple text-white shadow-primary-purple/20 hover:brightness-110'}`}>
+          <button className={`w-full py-6 rounded-[1.5rem] font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-xl active:scale-95 ${p.featured ? 'bg-white text-rancho-coral shadow-white/20 hover:brightness-110' : 'bg-rancho-turquoise text-white shadow-rancho-turquoise/20 hover:brightness-110'}`}>
             Seleccionar Plan
           </button>
         </div>
@@ -1246,8 +1395,8 @@ function ClientBooking() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 py-8">
-      <div className="lg:col-span-2 bg-white rounded-[3.5rem] border border-primary-purple/5 p-12 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.05)]">
-        <h4 className="text-3xl font-serif font-black mb-10 italic text-text-dark underline decoration-primary-purple/20 underline-offset-8">Calendario de Disponibilidad</h4>
+      <div className="lg:col-span-2 bg-white rounded-[3.5rem] border border-gray-100 p-12 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.05)]">
+        <h4 className="text-3xl font-serif font-black mb-10 italic text-text-dark underline decoration-rancho-turquoise/20 underline-offset-8">Calendario de Disponibilidad</h4>
         <div className="grid grid-cols-7 gap-4">
           {['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'].map(d => (
             <div key={d} className="text-center text-[10px] font-black uppercase tracking-widest text-text-muted pb-4">{d}</div>
@@ -1258,8 +1407,8 @@ function ClientBooking() {
               onClick={() => setSelectedDay(i)}
               className={`aspect-square rounded-[1.8rem] border-2 transition-all flex flex-col items-center justify-center gap-1 group relative overflow-hidden ${
                 selectedDay === i 
-                  ? 'bg-primary-purple border-primary-purple text-white shadow-2xl scale-110 z-10' 
-                  : 'bg-gray-50 border-gray-100 hover:border-primary-purple/30 text-text-muted hover:bg-white'
+                  ? 'bg-rancho-turquoise border-rancho-turquoise text-white shadow-2xl scale-110 z-10' 
+                  : 'bg-gray-50 border-gray-100 hover:border-rancho-turquoise/30 text-text-muted hover:bg-white'
               }`}
             >
               <span className={`text-sm font-black transition-colors ${selectedDay === i ? 'text-white' : 'text-text-dark'}`}>{i + 1}</span>
@@ -1269,9 +1418,9 @@ function ClientBooking() {
         </div>
       </div>
 
-      <div className="bg-white rounded-[3.5rem] border border-primary-purple/5 p-12 shadow-2xl shadow-primary-purple/10 flex flex-col h-fit relative">
+      <div className="bg-white rounded-[3.5rem] border border-gray-100 p-12 shadow-2xl shadow-rancho-turquoise/10 flex flex-col h-fit relative">
         <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none"><CalendarRange size={120} /></div>
-        <h4 className="text-2xl font-serif font-black italic mb-10 text-text-dark underline decoration-accent-pink/20 underline-offset-8">Tu Evento</h4>
+        <h4 className="text-2xl font-serif font-black italic mb-10 text-text-dark underline decoration-rancho-coral/20 underline-offset-8">Tu Evento</h4>
         <div className="space-y-8 flex-1">
           <div className="bg-gray-50 p-6 rounded-3xl border border-gray-100">
             <span className="text-[10px] uppercase font-black text-text-muted tracking-widest italic block mb-2">Fecha Seleccionada</span>
@@ -1279,7 +1428,7 @@ function ClientBooking() {
           </div>
           <div className="bg-gray-50 p-6 rounded-3xl border border-gray-100">
             <label className="text-[10px] uppercase font-black text-text-muted tracking-widest italic block mb-3">Aforo Estimado</label>
-            <select className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 text-sm font-black italic outline-none focus:border-primary-purple transition-all shadow-sm">
+            <select className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 text-sm font-black italic outline-none focus:border-rancho-turquoise transition-all shadow-sm">
               <option>50 - 100 Personas</option>
               <option>100 - 200 Personas</option>
               <option>Boutique (Menos de 50)</option>
@@ -1292,7 +1441,7 @@ function ClientBooking() {
           <button 
             onClick={handleBook}
             disabled={selectedDay === null || isBooking}
-            className="w-full bg-gradient-to-r from-primary-purple to-accent-pink text-white font-black py-6 rounded-[1.8rem] shadow-2xl shadow-primary-purple/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 flex items-center justify-center gap-4 text-xs uppercase tracking-[0.2em]"
+            className="w-full bg-gradient-to-r from-rancho-turquoise to-rancho-coral text-white font-black py-6 rounded-[1.8rem] shadow-2xl shadow-rancho-coral/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 flex items-center justify-center gap-4 text-xs uppercase tracking-[0.2em]"
           >
             {isBooking ? 'PROCESANDO...' : 'Diseñar mi Propuesta Ahora'}
           </button>
@@ -1395,14 +1544,14 @@ export default function App() {
       onClick={() => handleRoleSelect(type)}
       className="p-8 bg-white rounded-[2.5rem] shadow-[0_15px_40px_-5px_rgba(107,33,168,0.1)] text-left flex flex-col gap-6 transition-all hover:shadow-[0_25px_60px_-5px_rgba(107,33,168,0.2)] border border-primary-purple/5 relative group overflow-hidden"
     >
-      <div className="p-5 rounded-2xl bg-primary-purple text-white w-fit group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+      <div className={`p-5 rounded-2xl ${type === 'client' ? 'bg-rancho-turquoise' : 'bg-primary-purple'} text-white w-fit group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500`}>
         <Icon size={32} />
       </div>
       <div>
         <h3 className="text-2xl font-serif font-bold text-text-dark mb-2">{title}</h3>
         <p className="text-text-muted text-sm leading-relaxed">{desc}</p>
       </div>
-      <div className="mt-4 flex items-center gap-2 text-primary-purple text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className={`mt-4 flex items-center gap-2 ${type === 'client' ? 'text-rancho-turquoise' : 'text-primary-purple'} text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity`}>
         Seleccionar Rol <ArrowRight size={14} />
       </div>
     </motion.button>
@@ -1410,7 +1559,7 @@ export default function App() {
 
   if (!role) {
     return (
-      <div id="role-selection-screen" className="min-h-screen bg-[#f0f4ff] selection:bg-primary-purple/20 flex items-center justify-center p-6 relative overflow-hidden">
+      <div id="role-selection-screen" className="min-h-screen bg-white selection:bg-rancho-turquoise/20 flex items-center justify-center p-6 relative overflow-hidden">
         <div className="fixed inset-0 z-0 pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary-purple/10 rounded-full blur-[120px] opacity-40" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-pink/10 rounded-full blur-[150px] opacity-30" />
@@ -1419,9 +1568,9 @@ export default function App() {
         <div className="max-w-5xl w-full relative z-10 text-center">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mb-12">
             <img 
-              src="la_casa_del_rancho_logo.png" 
+              src="https://cossma.com.mx//lacasadelrancho.png" 
               alt="La Casa del Rancho Logo" 
-              className="w-48 h-auto mx-auto mb-8 drop-shadow-xl brightness-110"
+              className="w-56 h-auto mx-auto mb-8 drop-shadow-xl"
               referrerPolicy="no-referrer"
             />
             <h1 className="text-4xl font-serif italic font-bold text-primary-purple tracking-tight mb-2">Bienvenido</h1>
@@ -1440,7 +1589,7 @@ export default function App() {
   }
 
   return (
-    <div id="main-app-container" className="min-h-screen bg-[#f0f4ff] font-sans selection:bg-primary-purple/20 relative">
+    <div id="main-app-container" className="min-h-screen bg-white font-sans selection:bg-rancho-turquoise/20 relative">
       {/* Background Orbs */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-purple/10 rounded-full blur-[100px]" />
@@ -1450,13 +1599,13 @@ export default function App() {
       <main className="relative z-10 p-6 md:p-12 pb-32 md:pb-32 max-w-7xl mx-auto w-full">
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8 bg-white/40 backdrop-blur-xl p-8 rounded-[3rem] border border-white/40 shadow-xl">
           <div className="flex items-center gap-6">
-            <img src="la_casa_del_rancho_logo.png" alt="Logo" className="w-20 h-auto" referrerPolicy="no-referrer" />
+            <img src="https://cossma.com.mx//lacasadelrancho.png" alt="Logo" className="w-24 h-auto drop-shadow-xl" referrerPolicy="no-referrer" />
             <div>
               <h2 id="dashboard-title" className="text-3xl font-serif font-bold tracking-tight text-text-dark capitalize italic">
                 {role === 'admin' ? 'Gerencia General' : role === 'coordinator' ? 'Ventas y Logística' : role === 'staff' ? 'Staff Operativo' : 'Explora el Rancho'}
               </h2>
               <div className="flex items-center gap-3 mt-1">
-                <span className="text-primary-purple font-black text-[10px] uppercase tracking-widest bg-primary-purple/10 px-3 py-1 rounded-full border border-primary-purple/10">
+                <span className={`${role === 'client' ? 'text-rancho-turquoise bg-rancho-turquoise/10 border-rancho-turquoise/10' : 'text-primary-purple bg-primary-purple/10 border-primary-purple/10'} font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border`}>
                   {ROLE_CONFIGS[role].title}
                 </span>
                 <p className="text-text-muted text-sm font-medium italic">
