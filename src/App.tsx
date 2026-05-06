@@ -408,7 +408,7 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
 
   return (
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl">
-      <div className="bg-white/80 backdrop-blur-3xl p-3 rounded-[2.5rem] shadow-[0_20px_50px_-10px_rgba(107,33,168,0.2)] flex items-center justify-between gap-2 border border-white/40 ring-1 ring-primary-purple/5">
+      <div className="bg-rancho-nav/90 backdrop-blur-3xl p-3 rounded-[2.5rem] shadow-[0_20px_50px_-10px_rgba(244,73,21,0.3)] flex items-center justify-between gap-2 border border-white/20">
         <div className="flex items-center gap-2 flex-1 overflow-x-auto no-scrollbar px-2">
           {config.menu.map((item, idx) => {
             const tabId = item.label.toLowerCase().replace(/\s+/g, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
@@ -420,8 +420,8 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
                 onClick={() => onTabChange(tabId)}
                 className={`flex-1 min-w-[70px] py-3.5 rounded-[1.8rem] flex flex-col items-center gap-1 transition-all duration-500 group relative overflow-hidden ${
                   isActive 
-                    ? (role === 'client' ? 'text-rancho-turquoise' : 'text-primary-purple') 
-                    : `text-text-muted ${role === 'client' ? 'hover:text-rancho-turquoise' : 'hover:text-primary-purple'}`
+                    ? 'text-white' 
+                    : 'text-white/60 hover:text-white'
                 }`}
               >
                 <div className={`relative z-10 transition-transform duration-500 ${isActive ? 'scale-110 mb-0.5' : 'group-hover:scale-110'}`}>
@@ -431,7 +431,7 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
                 {isActive && (
                   <motion.div 
                     layoutId="active-pill"
-                    className={`absolute inset-x-1 inset-y-1 ${role === 'client' ? 'bg-rancho-turquoise/10' : 'bg-primary-purple/10'} rounded-[1.4rem] shadow-inner`}
+                    className="absolute inset-x-1 inset-y-1 bg-white/20 rounded-[1.4rem] shadow-inner"
                     transition={{ type: 'spring', bounce: 0.25, duration: 0.8 }}
                   />
                 )}
@@ -440,11 +440,11 @@ function BottomNav({ role, activeTab, onTabChange, onLogout }: {
           })}
         </div>
         
-        <div className="w-px h-10 bg-gray-100 mx-2" />
+        <div className="w-px h-10 bg-white/20 mx-2" />
         
         <button 
           onClick={onLogout}
-          className="p-5 rounded-[1.8rem] text-text-muted hover:text-accent-pink hover:bg-accent-pink/5 transition-all group"
+          className="p-5 rounded-[1.8rem] text-white/60 hover:text-white hover:bg-white/10 transition-all group"
           title="Salir"
         >
           <LogOut size={22} className="group-hover:translate-x-0.5 transition-transform" />
@@ -1311,8 +1311,16 @@ function ClientLanding() {
       </section>
 
       {/* 8. Footer */}
-      <footer className="bg-gray-100 -mx-6 md:-mx-12 pt-20 pb-10">
-        <div className="max-w-7xl mx-auto px-6">
+      <footer className="relative bg-gray-100 -mx-6 md:-mx-12 pt-20 pb-10 overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: 'url(https://oem.com.mx/elsoldemorelia/img/14157753/1709106760/BASE_LANDSCAPE/1200/image.webp)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
             <img 
               src="https://cossma.com.mx//lacasadelrancho.png" 
@@ -1597,18 +1605,18 @@ export default function App() {
       </div>
 
       <main className="relative z-10 p-6 md:p-12 pb-32 md:pb-32 max-w-7xl mx-auto w-full">
-        <header className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8 bg-white/40 backdrop-blur-xl p-8 rounded-[3rem] border border-white/40 shadow-xl">
+        <header className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8 bg-rancho-nav p-8 rounded-[3rem] border border-white/20 shadow-2xl">
           <div className="flex items-center gap-6">
-            <img src="https://cossma.com.mx//lacasadelrancho.png" alt="Logo" className="w-24 h-auto drop-shadow-xl" referrerPolicy="no-referrer" />
+            <img src="https://cossma.com.mx//lacasadelrancho.png" alt="Logo" className="w-24 h-auto drop-shadow-xl brightness-0 invert" referrerPolicy="no-referrer" />
             <div>
-              <h2 id="dashboard-title" className="text-3xl font-serif font-bold tracking-tight text-text-dark capitalize italic">
+              <h2 id="dashboard-title" className="text-3xl font-serif font-bold tracking-tight text-white capitalize italic">
                 {role === 'admin' ? 'Gerencia General' : role === 'coordinator' ? 'Ventas y Logística' : role === 'staff' ? 'Staff Operativo' : 'Explora el Rancho'}
               </h2>
               <div className="flex items-center gap-3 mt-1">
-                <span className={`${role === 'client' ? 'text-rancho-turquoise bg-rancho-turquoise/10 border-rancho-turquoise/10' : 'text-primary-purple bg-primary-purple/10 border-primary-purple/10'} font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border`}>
+                <span className="text-white bg-white/20 border-white/10 font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border">
                   {ROLE_CONFIGS[role].title}
                 </span>
-                <p className="text-text-muted text-sm font-medium italic">
+                <p className="text-white/70 text-sm font-medium italic">
                   {role === 'admin' ? 
                     (activeTab === 'resumen' ? 'Panel de Control Principal' : activeTab === 'finanzas' ? 'Auditoría Financiera' : activeTab === 'usuarios' ? 'Gestión de Capital Humano' : activeTab === 'configuracion' ? 'Configuración de Negocio' : 'Inteligencia de Datos') 
                     : activeTab
@@ -1620,9 +1628,9 @@ export default function App() {
           
           <div className="flex items-center gap-4">
              <div className="flex -space-x-2 mr-4">
-                {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?u=${i}`} className="w-10 h-10 rounded-full border-2 border-white" />)}
+                {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?u=${i}`} className="w-10 h-10 rounded-full border-2 border-white shadow-lg" />)}
              </div>
-             <button className="p-4 rounded-2xl bg-white border border-primary-purple/10 text-primary-purple shadow-lg hover:shadow-xl transition-all">
+             <button className="p-4 rounded-2xl bg-white/10 border border-white/20 text-white shadow-lg hover:bg-white/20 transition-all">
                 <Settings size={20} />
              </button>
           </div>
